@@ -3,15 +3,15 @@ var ctx = canvas.getContext('2d');
 
 let x = canvas.width/2;
 let y = canvas.height - 30;
-let dx = 2;
-let dy = -2;
-const ballRadius = 10;
+let dx = 3;
+let dy = -3;
+const ballRadius = 20;
 let paddleHeight = 10;
 let paddleWidth = 75;
 let paddleX = (canvas.width-paddleWidth)/2;
 let rightPressed = false;
 let leftPressed = false;
-const brickRowCount = 3;
+let brickRowCount = 3;
 const brickColumnCount = 5;
 const brickWidth = 75;
 const brickHeight = 20;
@@ -20,12 +20,19 @@ const brickOffsetTop = 30;
 const brickOffsetLeft = 30;
 let score = 0;
 let lives = 3;
+let level = 1;
+let maxLevel = 5;
+let ball = new Image();
+ball.src = 'http://pngimg.com/uploads/football/football_PNG52790.png'
 
 let bricks = [];
-for (c=0; c<brickColumnCount; c++) {
-	bricks[c] = [];
-	for (r=0; r<brickRowCount; r++) {
-		bricks[c][r] = {x: 0, y:0, status: 1};
+initBricks();
+function initBricks() {
+	for (c=0; c<brickColumnCount; c++) {
+		bricks[c] = [];
+		for (r=0; r<brickRowCount; r++) {
+			bricks[c][r] = {x: 0, y:0, status: 1};
+		}
 	}
 }
 
@@ -49,11 +56,7 @@ function keyUpHandler(e) {
 }
 
 function drawBall() {
-    ctx.beginPath();
-    ctx.arc(x, y, ballRadius, 0, Math.PI*2, false);
-    ctx.fillStyle = "blue";
-    ctx.fill();
-    ctx.closePath();
+    ctx.drawImage(ball, x, y, ballRadius, ballRadius);
 }
 
 function drawPaddle() {
@@ -74,8 +77,24 @@ function collisionDetection() {
 					b.status = 0;
                     score++;
 					if(score == brickRowCount*brickColumnCount) {
-						alert("YOU WIN, CONGRADULATIONS!");
-						document.location.reload();
+						if(level === maxLevel) {
+							alert("YOU WIN, CONGRADULATIONS!");
+							document.location.reload();
+						} else {
+							level++;
+							brickRowCount++;
+							initBricks();
+							score=0;
+							if(dx>=0)
+								dx += 1;
+							else dx -= 1
+							if(dy>=0)
+								dy += 1;
+							else dy -= 1;
+							x = canvas.width/2;
+							y = canvas.height-30;
+							paddleX = (canvas.width-paddleWidth)/2;
+						}
 					}
 				}
 			}
@@ -113,6 +132,12 @@ function drawLives() {
     ctx.fillText("Lives: " + lives, canvas.width - 65, 20)
 }
 
+function drawLevel() {
+    ctx.font = "16px Arial";
+    ctx.fillStyle = "green";
+    ctx.fillText("Level: " + level, 210, 20)
+}
+
 function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     drawBall();
@@ -121,6 +146,7 @@ function draw() {
     collisionDetection();
     drawScore();
 	drawLives();
+	drawLevel();
 
     if(y + dy < ballRadius) {
         dy = -dy;
@@ -136,8 +162,6 @@ function draw() {
 			} else {
 				x = canvas.width/2;
 				y = canvas.height-30;
-				dx = 2;
-				dy = -2
 				paddleX = (canvas.width-paddleWidth)/2;
 			}
         }
