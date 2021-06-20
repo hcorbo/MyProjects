@@ -1,0 +1,46 @@
+{
+  "moviz": [
+    {
+      "id": "1",
+      "title": "Fast and Furious",
+      "genre": ["action", "comedy", "fantasy"],
+      "imdbRating": "6.8"
+    },
+    {
+      "id": "2",
+      "title": "The Ultimate Gift",
+      "genre": ["drama", "family", "romance"],
+      "imdbRating": "7.3"
+    },
+    {
+      "id": "3",
+      "title": "Avatar",
+      "genre": ["fantasy", "adventure"],
+      "imdbRating": "7.9"
+    },
+    {
+      "id": "4",
+      "title": "300",
+      "genre": ["action", "drama", "fantasy"],
+      "imdbRating": "7.7"
+    },
+    {
+      "id": "5",
+      "title": "Home Alone",
+      "genre": ["comedy", "family"],
+      "imdbRating": "7.7"
+    },
+    {
+      "id": "6",
+      "title": "Dumb and Dumber",
+      "genre": ["comedy", "family"],
+      "imdbRating": "7.3"
+    },
+    {
+      "id": "7",
+      "title": "Mechanic",
+      "genre": ["action", "adventure", "crime"],
+      "imdbRating": "7.7"
+    }
+  ]
+}
